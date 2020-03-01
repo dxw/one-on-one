@@ -14,69 +14,47 @@ jobs:
       - name: Set environment variables
         run: |
           echo ::set-env name=BRANCH_NAME::"$(date '+%F')"
-          echo ::set-env name=WEEK_OF::"Week of $(date '+%B %d, %Y')"
+          echo ::set-env name=FILE_NAME::"$(date '+%F')-one-to-one.md"
+          echo ::set-env name=TITLE::"Week of $(date '+%d %B %Y')"
+          echo ::set-env name=MANAGER_GITHUB_USERNAME::"TODO"
+          echo ::set-env name=REPORT_GITHUB_USERNAME::"TODO"
 
-      - name: Create weekly notes scaffold file
+      - name: Create new notes template file
         run: |
-          for f in meeting-notes/notes.md; do
-          sed -i '/# 1:1 notes/a\
-          ## '"$WEEK_OF"'\
-          \
-          ### What can we talk about? \
-          \
-          - [TODO] \
-          \
-          ### What can we celebrate? \
-          \
-          - [TODO] \
-          \
-          ### What is frustrating, blocking, or confusing you? \
-          \
-          - [TODO] \
-          \
-          ### What are your goals for the week? \
-          \
-          - [TODO] \
-          \
-          ### Do you have any feedback for me or your teammates? \
-          - [TODO]' $f
-          \
-          \
-          done
+          cp meeting-notes/templates/one-to-one.md "meeting-notes/$FILE_NAME"
+          sed -i "" "s~{{TITLE}}~$TITLE~g" "meeting-notes/$FILE_NAME"
 
-      - name: Commit and push notes scaffold to branch
+      - name: Commit and push notes template file to new branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
           git config --global user.email $GITHUB_ACTOR@users.noreply.github.com
           git config --global user.name $GITHUB_ACTOR
           git checkout -b $BRANCH_NAME
           git add .
-          git commit -m "Add meeting notes scaffold"
-          git push --force --set-upstream "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" $BRANCH_NAME
+          git commit -m "Create a meeting notes template"
+          git push --force --set-upstream "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" $BRANCH_NAME
 
-      # Open pull request
-      - name: Open pull request for 1:1 notes
+      - name: Open pull request
         uses: actions/github-script@0.8.0
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const createPull = await github.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: process.env["WEEK_OF"],
-              body: "Commit your 1:1 updates",
-              head: process.env["BRANCH_NAME"],
+              title: process.env.TITLE,
+              body: "Add any notes for the 1:1",
+              head: process.env.BRANCH_NAME,
               base: "master",
             });
 
-            github.issues.addAssignees({
+            await github.issues.addAssignees({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: createPull.data.number,
               assignees: [
-                "manager-handle",
-                "ic-handle"
+                process.env.MANAGER_GITHUB_USERNAME,
+                process.env.REPORT_GITHUB_USERNAME
               ],
             });

@@ -1,15 +1,38 @@
-# Welcome to your repo
+# Welcome to your 1:1 repository
 
-This is a personal repo. It will house all 1:1 notes, documented goals/growth things, and anything else important.
+This is a personal repository. It will house all 1:1 notes, documented goals /
+growth things, and anything else important that comes up between you and your
+manager.
 
 ## How does it work?
 
-Meeting notes are saved in this private repo. They are very helpful to refer back to for both of us during review season. Only the two of us have access to this repo. If you get a new manager, with your permission, I can transfer the repo over so that you can have a consistent process, and so that your new manager can have access to previous notes.
+Meeting notes are saved in this private repo. They are very helpful to refer
+back to for both of us during review season. Only the two of us have access to
+this repository. If you get a new manager, you can transfer the repository over
+so that you can have a consistent process, and so that your new manager can have
+access to any previous notes.
 
-Every Monday, a GitHub action creates a PR within a a markdown file containing questions about the week ahead. We can each add notes to this as they come to mind, and then during our 1:1 can reference them and add new notes and to-dos. At the end of the week, you can review and merge the PR, marking the notes seen and complete.
+Every Monday, a GitHub action creates a PR within a markdown file containing
+questions about the week ahead. We can each add notes to this as they come to
+mind, and then, during our 1:1, reference them and add new notes and to-dos. At
+the end of the week, you can review and merge the PR, marking the notes as seen
+and complete.
 
-## Steps for using this repo template
+## Steps for using this template
 
-1. [Create a new private repo from this template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template). (Tips: I always do this in my company's org so that it is not dependent on me or my employment. I make the repository name the IC's handle.)
-1. Update [these two lines](https://github.com/sophshep/one-on-one/blob/master/.github/workflows/weekly-report.yml#L80-L81) to be your handle and the IC's handle. This will assign weekly PRs to both of you so that they show up in your notifications.
-1. Invite the IC to the repo as an admin so they have full editing/merging permissions.
+1. [Create a new private repository from this template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
+
+   The report should do this, so the repository follows them across managers.
+
+1. Invite the manager to the repository as an admin so they have full permission
+   to modify and update the repository
+
+   It's a shared resource to aid our communication.
+
+1. Update [these two lines](.github/workflows/weekly-report.yml#L17-18) with the
+   manager and reports' GitHub usernames
+
+   This will assign weekly PRs to both of you so that they show up in your
+   notifications.
+
+1. Delete this section
