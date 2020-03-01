@@ -29,10 +29,10 @@ and complete.
 
    It's a shared resource to aid our communication.
 
-1. Update [these two lines](.github/workflows/weekly-report.yml#L17-18) with the
-   manager and reports' GitHub usernames
+1. Update [these two lines](.github/workflows/one-to-one-notes.yml#L34-35) with
+   the manager and reports' GitHub usernames
 
-   This will assign weekly PRs to both of you so that they show up in your
-   notifications.
+   This will assign the fortnightly PRs to both of you so that they show up in
+   your notifications.
 
 1. Delete this section

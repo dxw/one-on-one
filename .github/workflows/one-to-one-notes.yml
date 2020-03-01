@@ -1,30 +1,47 @@
-name: Weekly report
+name: One to one notes
 
 on:
   schedule:
     - cron: 0 3 * * 1
 
 jobs:
-  weekly-report:
+  one-to-one-notes:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Check week
+        run: |
+          # Divide the time since epoch by the number of seconds in a week for
+          # a number that flips parity every week.
+          case $(($(date +\%s) / (60 * 60 * 24 * 7))) in
+            # To shift the week, replace this list of all the even digits with a
+            # list of all the odd ones.
+            *[02468])
+              echo ::set-env name=RUN_THIS_TIME::1
+              ;;
+          esac
+
+      - name: Checkout repository
+        if: env.RUN_THIS_TIME
+        uses: actions/checkout@v2
 
       - name: Set environment variables
+        if: env.RUN_THIS_TIME
         run: |
-          echo ::set-env name=BRANCH_NAME::"$(date '+%F')"
+          echo ::set-env name=BRANCH_NAME::"one-to-one/$(date '+%F')"
           echo ::set-env name=FILE_NAME::"$(date '+%F')-one-to-one.md"
-          echo ::set-env name=TITLE::"Week of $(date '+%d %B %Y')"
+          echo ::set-env name=TITLE::"Fortnight of $(date '+%d %B %Y')"
           echo ::set-env name=MANAGER_GITHUB_USERNAME::"TODO"
           echo ::set-env name=REPORT_GITHUB_USERNAME::"TODO"
 
       - name: Create new notes template file
+        if: env.RUN_THIS_TIME
         run: |
           cp meeting-notes/templates/one-to-one.md "meeting-notes/$FILE_NAME"
           sed -i "" "s~{{TITLE}}~$TITLE~g" "meeting-notes/$FILE_NAME"
 
       - name: Commit and push notes template file to new branch
+        if: env.RUN_THIS_TIME
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -36,6 +53,7 @@ jobs:
           git push --force --set-upstream "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" $BRANCH_NAME
 
       - name: Open pull request
+        if: env.RUN_THIS_TIME
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
