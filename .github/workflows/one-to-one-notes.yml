@@ -2,7 +2,7 @@ name: One to one notes
 
 on:
   schedule:
-    - cron: 0 3 * * 1
+    - cron: 0 3 * * MON
 
 jobs:
   one-to-one-notes:
