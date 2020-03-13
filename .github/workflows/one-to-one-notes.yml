@@ -38,7 +38,7 @@ jobs:
         if: env.RUN_THIS_TIME
         run: |
           cp meeting-notes/templates/one-to-one.md "meeting-notes/$FILE_NAME"
-          sed -i "" "s~{{TITLE}}~$TITLE~g" "meeting-notes/$FILE_NAME"
+          sed -i "s~{{TITLE}}~$TITLE~g" "meeting-notes/$FILE_NAME"
 
       - name: Commit and push notes template file to new branch
         if: env.RUN_THIS_TIME
