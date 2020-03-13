@@ -13,7 +13,7 @@ jobs:
         run: |
           # Divide the time since epoch by the number of seconds in a week for
           # a number that flips parity every week.
-          case $(($(date +\%s) / (60 * 60 * 24 * 7))) in
+          case $(($(date '+%s') / (60 * 60 * 24 * 7))) in
             # To shift the week, replace this list of all the even digits with a
             # list of all the odd ones.
             *[02468])
