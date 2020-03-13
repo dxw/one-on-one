@@ -30,7 +30,7 @@ jobs:
         run: |
           echo ::set-env name=BRANCH_NAME::"one-to-one/$(date '+%F')"
           echo ::set-env name=FILE_NAME::"$(date '+%F')-one-to-one.md"
-          echo ::set-env name=TITLE::"Fortnight of $(date '+%d %B %Y')"
+          echo ::set-env name=TITLE::"Period starting $(date '+%d %B %Y')"
           echo ::set-env name=MANAGER_GITHUB_USERNAME::"TODO"
           echo ::set-env name=REPORT_GITHUB_USERNAME::"TODO"
 
