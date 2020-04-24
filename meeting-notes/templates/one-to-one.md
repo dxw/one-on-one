@@ -23,3 +23,13 @@
 ### Do you have any feedback for me or your teammates?
 
 - TODO
+
+## Actions
+
+### TODO: Report
+
+- [ ] TODO
+
+### TODO: Manager
+
+- [ ] TODO

@@ -34,4 +34,7 @@ as seen and complete.
    [these lines](.github/workflows/one-to-one-notes.yml#L14-23) with real values
    matching your 1:1 schedule and cadence
 
+1. Add both of our names to the actions section headings of
+   [the template](meeting-notes/templates/one-to-one.md)
+
 1. Delete this section
