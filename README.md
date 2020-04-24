@@ -1,8 +1,7 @@
 # Welcome to your 1:1 repository
 
-This is a personal repository. It will house all 1:1 notes, documented goals /
-growth things, and anything else important that comes up between you and your
-manager.
+This repository will house all 1:1 notes, documented goals / growth things, and
+anything else important that comes up between you and your manager.
 
 ## How does it work?
 
