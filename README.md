@@ -12,11 +12,11 @@ this repository. If you get a new manager, you can transfer the repository over
 so that you can have a consistent process, and so that your new manager can have
 access to any previous notes.
 
-Every other Monday (configurable), a GitHub action creates a PR within a
-markdown file containing questions about the period ahead. We can each add notes
-to this as they come to mind, and then, during our 1:1, reference them and add
-new notes and to-dos. At the end of the period, you can review and merge the PR,
-marking the notes as seen and complete.
+Every Monday (configurable), a GitHub action creates a PR with a markdown file
+containing questions about the week ahead. We can each add notes to this as
+commits as they come to mind, and then, during our 1:1, reference them and add
+new notes and actions. You can then review and merge the PR, marking the notes
+as seen and complete.
 
 ## Steps for using this template
 
@@ -30,10 +30,8 @@ marking the notes as seen and complete.
 
    It's a shared resource to aid our communication.
 
-1. Update [these two lines](.github/workflows/one-to-one-notes.yml#L34-35) with
-   the our GitHub usernames
-
-   This will assign the PRs to both of us so that they show up in our
-   notifications.
+1. Update [this line](.github/workflows/one-to-one-notes.yml#L5) and
+   [these lines](.github/workflows/one-to-one-notes.yml#L14-23) with real values
+   matching your 1:1 schedule and cadence
 
 1. Delete this section

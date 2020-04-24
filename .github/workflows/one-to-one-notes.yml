@@ -2,37 +2,42 @@ name: One to one notes
 
 on:
   schedule:
-    - cron: 0 3 * * MON
+    - cron: 0 17 * * MON
 
 jobs:
   one-to-one-notes:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set environment variables
+        run: |
+          echo ::set-env name=WEEKS_BETWEEN_MEETINGS::'1'
+
+          # Set this to the date of the Monday of a past week with a
+          # meeting in it.
+          #
+          # Supports ISO 8601 format dates, e.g. "2020-01-31".
+          echo ::set-env name=MEETING_BASE_WEEK::'TODO'
+
+          echo ::set-env name=MANAGER_GITHUB_USERNAME::'TODO'
+          echo ::set-env name=REPORT_GITHUB_USERNAME::'TODO'
+
+          echo ::set-env name=BRANCH_NAME::"one-to-one/$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')"
+          echo ::set-env name=FILE_NAME::"$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')-one-to-one.md"
+          echo ::set-env name=TITLE::"1:1 on $(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%d %B %Y')"
+
       - name: Check week
         run: |
-          # Divide the time since epoch by the number of seconds in a week for
-          # a number that flips parity every week.
-          case $(($(date '+%s') / (60 * 60 * 24 * 7))) in
-            # To shift the week, replace this list of all the even digits with a
-            # list of all the odd ones.
-            *[02468])
-              echo ::set-env name=RUN_THIS_TIME::1
-              ;;
-          esac
+          SECONDS_SINCE_BASE_WEEK=$(($(date '+%s') - $(date --date "$MEETING_BASE_WEEK" '+%s')))
+          WEEKS_SINCE_BASE_WEEK=$(($SECONDS_SINCE_BASE_WEEK / (60 * 60 * 24 * 7)))
+
+          if [ $(($WEEKS_SINCE_BASE_WEEK % $WEEKS_BETWEEN_MEETINGS)) = 0 ]; then
+            echo ::set-env name=RUN_THIS_TIME::1
+          fi
 
       - name: Checkout repository
         if: env.RUN_THIS_TIME
         uses: actions/checkout@v2
-
-      - name: Set environment variables
-        if: env.RUN_THIS_TIME
-        run: |
-          echo ::set-env name=BRANCH_NAME::"one-to-one/$(date '+%F')"
-          echo ::set-env name=FILE_NAME::"$(date '+%F')-one-to-one.md"
-          echo ::set-env name=TITLE::"Period starting $(date '+%d %B %Y')"
-          echo ::set-env name=MANAGER_GITHUB_USERNAME::"TODO"
-          echo ::set-env name=REPORT_GITHUB_USERNAME::"TODO"
 
       - name: Create new notes template file
         if: env.RUN_THIS_TIME
@@ -45,12 +50,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.email $GITHUB_ACTOR@users.noreply.github.com
-          git config --global user.name $GITHUB_ACTOR
-          git checkout -b $BRANCH_NAME
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
+          git checkout -b "$BRANCH_NAME"
           git add .
           git commit -m "Create a meeting notes template"
-          git push --force --set-upstream "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" $BRANCH_NAME
+          git push --force --set-upstream "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" "$BRANCH_NAME"
 
       - name: Open pull request
         if: env.RUN_THIS_TIME
