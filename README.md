@@ -34,6 +34,6 @@ as seen and complete.
    matching your 1:1 schedule and the people involved
 
 1. Replace the action headings in
-   [the template](meeting-notes/templates/one-to-one.md) with both our names
+   [the template](meeting-notes/templates/one-to-one.md) with both of our names
 
 1. Delete this section
