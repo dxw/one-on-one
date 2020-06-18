@@ -22,7 +22,7 @@ jobs:
           echo ::set-env name=MANAGER_GITHUB_USERNAME::'TODO'
           echo ::set-env name=REPORT_GITHUB_USERNAME::'TODO'
 
-      - name: Set configurable environment variables
+      - name: Set generated environment variables
         run: |
           echo ::set-env name=BRANCH_NAME::"one-to-one/$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')"
           echo ::set-env name=FILE_NAME::"$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')-one-to-one.md"
