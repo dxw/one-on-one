@@ -29,9 +29,9 @@ as seen and complete.
 
    It's a shared resource to aid our communication.
 
-1. Update [this line](.github/workflows/one-to-one-notes.yml#L5) and
-   [these lines](.github/workflows/one-to-one-notes.yml#L14-23) with real values
-   matching your 1:1 schedule and cadence
+1. Update the [day of the week](.github/workflows/one-to-one-notes.yml#L5) and
+   [settings](.github/workflows/one-to-one-notes.yml#L12) with real values
+   matching your 1:1 schedule and the people involved
 
 1. Add both of our names to the actions section headings of
    [the template](meeting-notes/templates/one-to-one.md)
