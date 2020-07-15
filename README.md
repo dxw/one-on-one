@@ -11,11 +11,10 @@ this repository. If you get a new manager, you can transfer the repository over
 so that you can have a consistent process, and so that your new manager can have
 access to any previous notes.
 
-Every Monday (configurable), a GitHub action creates a PR with a markdown file
-containing questions about the week ahead. We can each add notes to this as
-commits as they come to mind, and then, during our 1:1, reference them and add
-new notes and actions. You can then review and merge the PR, marking the notes
-as seen and complete.
+Every Monday (configurable), a GitHub action creates a PR with a markdown file.
+We can each add notes to this as commits as they come to mind, and then, during
+our 1:1, reference them and add new notes and actions. You can then review and
+merge the PR, marking the notes as seen and complete.
 
 ## Steps for using this template
 
