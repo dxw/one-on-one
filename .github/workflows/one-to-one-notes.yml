@@ -9,24 +9,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set configurable environment variables
+      - name: Set environment variables
         run: |
-          echo ::set-env name=WEEKS_BETWEEN_MEETINGS::'1'
+          # Set this to the number of weeks between your regular meetings.
+          #
+          # For example, if you have fortnightly meetings, set this to 2 and set
+          # the `MEETING_BASE_WEEK` to the Monday of a past week you had a
+          # meeting in.
+          echo "WEEKS_BETWEEN_MEETINGS=1" >> $GITHUB_ENV
 
           # Set this to the date of the Monday of a past week with a
           # meeting in it.
           #
           # Supports ISO 8601 format dates, e.g. "2020-01-31".
-          echo ::set-env name=MEETING_BASE_WEEK::'TODO'
+          echo "MEETING_BASE_WEEK=TODO" >> $GITHUB_ENV
 
-          echo ::set-env name=MANAGER_GITHUB_USERNAME::'TODO'
-          echo ::set-env name=REPORT_GITHUB_USERNAME::'TODO'
+          # Set these to the GitHub usernames of the people involved.
+          echo "MANAGER_GITHUB_USERNAME=TODO" >> $GITHUB_ENV
+          echo "REPORT_GITHUB_USERNAME=TODO" >> $GITHUB_ENV
 
-      - name: Set generated environment variables
-        run: |
-          echo ::set-env name=BRANCH_NAME::"one-to-one/$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')"
-          echo ::set-env name=FILE_NAME::"$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')-one-to-one.md"
-          echo ::set-env name=TITLE::"1:1 on $(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%d %B %Y')"
+          # Don't touch these unless you know what you're doing.
+          echo "BRANCH_NAME=one-to-one/$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')" >> $GITHUB_ENV
+          echo "FILE_NAME=$(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%F')-one-to-one.md" >> $GITHUB_ENV
+          echo "TITLE=1:1 on $(date --date "+$WEEKS_BETWEEN_MEETINGS week" '+%d %B %Y')" >> $GITHUB_ENV
 
       - name: Check week
         run: |
@@ -34,7 +39,7 @@ jobs:
           WEEKS_SINCE_BASE_WEEK=$(($SECONDS_SINCE_BASE_WEEK / (60 * 60 * 24 * 7)))
 
           if [ $(($WEEKS_SINCE_BASE_WEEK % $WEEKS_BETWEEN_MEETINGS)) = 0 ]; then
-            echo ::set-env name=RUN_THIS_TIME::1
+            echo "RUN_THIS_TIME=1" >> $GITHUB_ENV
           fi
 
       - name: Checkout repository
