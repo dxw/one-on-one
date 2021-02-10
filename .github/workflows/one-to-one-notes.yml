@@ -66,25 +66,12 @@ jobs:
 
       - name: Open pull request
         if: env.RUN_THIS_TIME
-        uses: actions/github-script@0.8.0
+        uses: repo-sync/pull-request@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const createPull = await github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: process.env.TITLE,
-              body: "Add any notes for the 1:1",
-              head: process.env.BRANCH_NAME,
-              base: "master",
-            });
-
-            await github.issues.addAssignees({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: createPull.data.number,
-              assignees: [
-                process.env.MANAGER_GITHUB_USERNAME,
-                process.env.REPORT_GITHUB_USERNAME
-              ],
-            });
+          source_branch: ${{ env.BRANCH_NAME }}
+          destination_branch: main
+          pr_title: ${{ env.TITLE }}
+          pr_body: Add any notes for the 1:1
+          pr_assignee:
+            ${{ env.MANAGER_GITHUB_USERNAME }},${{ env.REPORT_GITHUB_USERNAME }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
