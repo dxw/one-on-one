@@ -66,7 +66,7 @@ jobs:
 
       - name: Open pull request
         if: env.RUN_THIS_TIME
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@v3.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
