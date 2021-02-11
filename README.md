@@ -22,7 +22,8 @@ notes as seen and complete.
 1. [Create a new private repository from this template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
 
    You (the individual contributor) should do this, so the repository follows
-   you across managers.
+   you across managers. You should do this in your own GitHub user account, or
+   any admin at dxw can see the contents!
 
 1. Invite me (the manager) to the repository as an admin, so I have full
    permission to modify and update the repository
